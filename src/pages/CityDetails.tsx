@@ -10,6 +10,7 @@ import HourlyForecast from '../components/HourlyForecast/HourlyForecast';
 import { TailSpin } from 'react-loader-spinner';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { HourlyWeatherResponds } from '../types/HourlyWeatherTypes';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 export const CityDetails: React.FC = () => {
   const { city } = useParams();
@@ -28,6 +29,9 @@ export const CityDetails: React.FC = () => {
   const [weatherForecast, setWeatherForecast] =
     useState<HourlyWeatherResponds | null>(null);
   const [temperatureForecast, setTemperatureForecast] = useState<number[]>([]);
+  const { height, width } = useWindowDimensions();
+  const calculatedWidth = width * 0.66;
+  const calculatedHeight = height * 0.5;
 
   useEffect(() => {
     const fetchCityDetails = async () => {
@@ -170,7 +174,7 @@ export const CityDetails: React.FC = () => {
           />
         </Box>
       </Paper>
-      <div className="bg-gradient-to-r from-[#3b4460] to-[#556a77] animate-gradient-animation p-5 mt-10 rounded-2xl">
+      <div className="bg-gradient-to-r from-[#3b4460] to-[#556a77] animate-gradient-animation p-5 mt-10 rounded-2xl ">
         <div className="text-2xl font-semibold text-white">
           Temperature forecast
         </div>
@@ -189,8 +193,8 @@ export const CityDetails: React.FC = () => {
               data: temperatureForecast,
             },
           ]}
-          width={1280}
-          height={500}
+          width={calculatedWidth}
+          height={calculatedHeight}
           colors={['#FFF']}
           sx={{
             '& .MuiChartsAxis-left .MuiChartsAxis-tickLabel': {
